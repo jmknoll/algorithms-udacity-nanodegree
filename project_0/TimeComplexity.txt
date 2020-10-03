@@ -1,0 +1,9 @@
+Task0: This program runs in constant time O(1), as the run time doesn't change with the input
+
+Task1: This programs runs in linear time. It iterates over two lists of lists, with each of the inner lists containing 3 elements, so it is  O(6n), which can be represented as O(n). Set is implemented as a hash table, so set.add() should be a constant-time operation, and doesn't affect the time complexity of our program.
+
+Task2: This program runs in linear time. It iterates over the input three times, for a runtime of 3n, which simplifies to O(n)
+
+Task3: This program runs in linear time, O(n), as it iterates over the input one time.
+
+Task4: This program iterates over the input two more times for each element in the input, so it runs in O(n^^3), polynomial time?
