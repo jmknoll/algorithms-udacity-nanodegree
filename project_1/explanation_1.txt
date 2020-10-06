@@ -1,0 +1,80 @@
+Problem 1
+
+The LRU combines a linked list and a dictionary to provide linear time insertions, deletions, and lookups.
+It stores values in a linked list, and uses a dictionary as a cache layer to provide O(1) average-time 
+lookups of values in the linked list. The linked list provides O(1) insertions at the head and O(1) deletions
+at the tail, for when the list length exceeds the capacity of the cache.
+
+The linked list and the hash table each require n space. So the space complexity is O(n).
+
+
+Problem 2
+
+The file system structure can be thought of as a tree, so the problem is best approached by traversing the treez
+and checking each filename to see if it matches a condition.
+
+The time complexity is O(n), as it traverses the tree and checks each node.
+
+The additional space required by this solution is O(log(n)), as it will call itself recursively with each
+subtree until it reaches a leaf node.
+
+
+Problem 3
+
+There are several steps to this solution. It first calculates the frequencies of each letter, then
+stores these values in a priority queue, which is used to build the huffman encoding tree. With the tree,
+a string can then be encoded or decoded.
+
+Building the dictionary of frequencies involves iterating over the list, and looking up and potentially 
+saving every element in the dictionary. The dictionary will take worst-case n additional space, and get/set 
+are both constant time operations on a python dict.
+
+Building the priority queue will take O(nlog(n)) time and O(n) additional space. The function
+iterates through the keys of the mapping generated in the previous step, and inserts each element into
+the priority queue. Insertion. Priority queue insertion is log(n), so this operation  will take worst-case
+O(nlog(n)) time. Every element needs to be saved to the priority queue, which will require O(n) additional
+space.
+
+With the priority queue, the next step of the solution is building the huffman tree. Each node in the
+queue will become a leaf node in the tree, so there will be approximately 2n nodes in the huffman tree,
+meaning this step will require approximately 2n additional time and space, or O(n)
+
+Finally, the actual process of encoding and decoding the string. Each character in the initial string
+requires 1 traversal of the tree from root to leaf, which will take log(n) time per letter.
+So the worst-case for both encoding and decoding the string is O(nlog(n)) time and O(n) space
+for the encoded/decoded string.
+
+
+Problem 4
+
+The structure of users and groups can be modeled as a tree. In this case, it seemed to lend itself
+to a BFS approach. The time complexity of this solution is O(n), since you need to traverse all nodes
+to determine whether the user is in a group. The space complexity is also O(n), as, depending on the 
+structure of the tree, it is possible that it might be neccesary to hold all nodes in the queue in the
+worst case.
+
+
+Problem 5
+
+The assignment is not really clear for this problem, but a blockchain consists of a block, which contains
+a hash of transaction information and a timestamp, as well as a link to the previous block, and a blockchain
+which is a linked list of blocks.
+
+The only neccesary operations are insertion and traversal, which take O(1) and O(n) time, respectively.
+The linked list take O(n) space. 
+
+Problem 6
+
+Union and intersection can be calculated in a number of ways. My solutions finds them by using a hash table.
+For union, the solution iterates over each list in turn. For each element in the list, it checks the hash table
+for the value, and if the value is not in the table, it append the value to array. After iterating over 
+both lists, the solution returns the array. 
+
+For intersection, the solution is similar. It iterates over the first list and saves all values to a hash table.
+Then it iterates over the second list, and checks the hash table for each value. If the value is
+in the hash table, it is appended to an array. The array is returned after checking both lists.
+
+Hash table lookup and insertion both run in average-case and amortized worst-case constant time. This means
+that iterating over both lists and performing a lookup for each time runs in O(n) time. Both union
+and intersection require 2n additional space, where n is the number of elements in the list, in the worst case, in order to store both the hash table and the
+return array.

@@ -1,5 +1,7 @@
-import collections 
+import collections
+
 deque = collections.deque()
+
 
 class Group(object):
     def __init__(self, _name):
@@ -33,6 +35,7 @@ sub_child.add_user(sub_child_user)
 child.add_group(sub_child)
 parent.add_group(child)
 
+
 def is_user_in_group(target_user, target_group):
     """
     Return True if user is in the group, False otherwise.
@@ -41,20 +44,28 @@ def is_user_in_group(target_user, target_group):
       user(str): user name/id
       group(class:Group): group to check user membership against
     """
+    if target_user is None or target_group is None:
+        return False
     q = deque
     q.append(target_group)
     while len(q):
-      group = q.popleft()
-      for user in group.users:
-        if user == target_user:
-          return True
-      for g in group.groups:
-        q.append(g)
+        group = q.popleft()
+        for user in group.users:
+            if user == target_user:
+                return True
+        for g in group.groups:
+            q.append(g)
     return False
 
-print(is_user_in_group('sub_child_user', parent))
+
+print(is_user_in_group("sub_child_user", parent))
 # True
 
-print(is_user_in_group('not in group', parent))
+print(is_user_in_group("not in group", parent))
 # False
 
+print(is_user_in_group("", parent))
+# False
+
+print(is_user_in_group(None, parent))
+# False

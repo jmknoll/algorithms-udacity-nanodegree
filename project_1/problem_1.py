@@ -1,5 +1,4 @@
 class LRU_Cache(object):
-
     def __init__(self, capacity):
         self.map = {}
         self.cache = LinkedList()
@@ -12,6 +11,8 @@ class LRU_Cache(object):
         return -1
 
     def set(self, key, value):
+        if self.capacity is 0:
+            return None
         # if cache is at capacity remove oldest item
         if self.cache.count == self.capacity:
             tail = self.cache.remove_from_tail()
@@ -22,7 +23,7 @@ class LRU_Cache(object):
         self.map[key] = node
 
 
-class LinkedList():
+class LinkedList:
     def __init__(self):
         self.head = None
         self.tail = None
@@ -41,8 +42,9 @@ class LinkedList():
 
     def remove_from_tail(self):
         tmp = self.tail
-        self.tail.previous.next = None
-        self.tail = self.tail.previous
+        if self.count > 1:
+            self.tail.previous.next = None
+            self.tail = self.tail.previous
         self.count -= 1
         return tmp
 
@@ -58,8 +60,7 @@ class LinkedList():
         self.prepend(node)
 
 
-class Node():
-
+class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
@@ -84,17 +85,19 @@ def test_linked_list():
         print(start.data)
         start = start.next
 
+
 # test_linked_list()
 # 2 4 5 3
 
 
-# Testing Cache
+# Test Cache 1
+print("test case 1")
 cache = LRU_Cache(5)
 
-cache.set(1, 'a')
-cache.set(2, 'b')
-cache.set(3, 'c')
-cache.set(4, 'd')
+cache.set(1, "a")
+cache.set(2, "b")
+cache.set(3, "c")
+cache.set(4, "d")
 
 
 print(cache.get(1))
@@ -102,8 +105,30 @@ print(cache.get(1))
 print(cache.get(2))
 # b
 
-cache.set(5, 'e')
-cache.set(6, 'f')
+cache.set(5, "e")
+cache.set(6, "f")
+
+print(cache.get(1))
+# -1
+
+# Test Cache 2
+print("test case 2")
+cache = LRU_Cache(1)
+
+cache.set(1, "a")
+cache.set(4, "d")
+
+
+print(cache.get(1))
+# -1
+print(cache.get(4))
+# d
+
+# Test Cache 3
+print("test case 3")
+cache = LRU_Cache(0)
+
+cache.set(1, "a")
 
 print(cache.get(1))
 # -1
