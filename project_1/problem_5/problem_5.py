@@ -3,11 +3,12 @@ import datetime
 
 
 class Block:
-    def __init__(self, timestamp, data, previous_hash):
+    def __init__(self, timestamp, data, previous_hash, previous_block):
         self.timestamp = timestamp
         self.data = data
         self.previous_hash = previous_hash
         self.hash = self.calc_hash()
+        self.previous_block = previous_block
 
     def calc_hash(self):
         sha = hashlib.sha256()
@@ -20,13 +21,13 @@ class Block:
 class Blockchain:
     def __init__(self, data):
         timestamp = datetime.datetime.now()
-        self.root = Block(timestamp, data, None)
+        self.root = Block(timestamp, data, None, None)
         self.head = self.root
         self.length = 1
 
     def append(self, data):
         timestamp = datetime.datetime.now()
-        block = Block(timestamp, data, self.head)
+        block = Block(timestamp, data, self.head.hash, self.head)
         self.head = block
         self.length += 1
 
@@ -39,7 +40,7 @@ bc.append(3)
 node = bc.head
 while node:
     print(node.hash)
-    node = node.previous_hash
+    node = node.previous_block
 
 # Test Case 2
 bc2 = Blockchain(1)
@@ -52,7 +53,7 @@ while i < 1000:
 node2 = bc2.head
 while node2:
     print(node2.hash)
-    node2 = node2.previous_hash
+    node2 = node2.previous_block
 
 
 # Test Case 3
@@ -61,4 +62,4 @@ bc3 = Blockchain(None)
 node3 = bc3.head
 while node3:
     print(node3.hash)
-    node3 = node3.previous_hash
+    node3 = node3.previous_block

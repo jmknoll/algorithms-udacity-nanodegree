@@ -57,7 +57,7 @@ def union(llist_1, llist_2):
             union[node2.value] = 1
             result.append(node2.value)
         node2 = node2.next
-    return result
+    return list(set(result))
 
 
 def intersection(llist_1, llist_2):
@@ -72,7 +72,7 @@ def intersection(llist_1, llist_2):
         if intersection.get(node2.value):
             result.append(node2.value)
         node2 = node2.next
-    return set(result)
+    return list(set(result))
 
 
 # Test case 1
